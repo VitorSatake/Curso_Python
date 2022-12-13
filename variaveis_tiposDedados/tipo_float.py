@@ -20,6 +20,12 @@ print(valor3, valor4)
 print(valor3)
 print(valor4)
 
+#numero complexo
+
+num = 5j # com o j é numero complexo
+
+print(type(num))
+
 
 
 
