@@ -118,4 +118,58 @@ print(lista5)
 
 #lista6 = list('Geek University')
 
+# Podemos remover todos os elementos (zerar a lista)
+
+print(lista5)
+lista5.clear() # limpa a lista toda
+print(lista5)
+
+# Podemos facilmente converter uma string para uma lista
+#Exemplo 1
+curso = 'Programação em python'
+curso = curso.split() # split separa por espaços
+print(curso)
+ #Exemplo 2
+curso = 'Programação,em,python'
+curso = curso.split(',') # split separa por espaços, passando o paramtro de sepação sendo virgula
+print(curso)
+
+# Convertendo uma lista em uma string
+lista6 = ['Programação', 'em', 'python:', 'essencial']
+print(lista6)
+# abaixo falamos : pega a lista6, coloca espaço entre cada elemento e transforma em string
+curso = ' '.join(lista6)
+print(curso)
+
+# podemos colocar qualquer tipo de dado em uma lista, inclusive misturar dados
+lista7 = [1, 2.34, True, 'geek', 'd', [1,2,3], 1234]
+
+# iterando sobre listas
+# exemplo 1
+
+for elemento in lista1:
+    print(elemento)
+
+soma = 0
+for elemento in lista4:
+    print(elemento)
+    soma = soma + elemento # faz a soma dos elementos
+print(soma)
+
+# com while
+
+carrinho = []
+produto = ''
+
+while produto != 'sair':
+    print("Adicione um produto na lista, ou digite 'sair' para sair")
+    produto = input()
+    if produto != 'sair':
+        carrinho.append(produto)
+
+for produto in carrinho:
+    print(produto)
+
+
+
 
