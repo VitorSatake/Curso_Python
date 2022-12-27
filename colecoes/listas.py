@@ -170,6 +170,11 @@ while produto != 'sair':
 for produto in carrinho:
     print(produto)
 
+# fazemos acesso ao s elementos de forma indexada
 
+cores = ['verde', 'amarelo', 'azul', 'branco']
+print(cores[2])
 
+# fazer acesso aos elementos de forma indexada inversa, de tras pra frente
+print(cores[-1])
 
