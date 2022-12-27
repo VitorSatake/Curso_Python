@@ -11,8 +11,6 @@ Qaulquer: as listas nao possuem tipo de dado fixo, ou seja, podemos colocar qual
 
 As listas em python sao representadas por colchetes: [] ;
 
-"""
-
 print(type([]))
 
 lista1 = [1, 99, 4, 27, 15, 22, 3, 1, 44, 42, 27] # lista de inteiros
@@ -178,3 +176,150 @@ print(cores[2])
 # fazer acesso aos elementos de forma indexada inversa, de tras pra frente
 print(cores[-1])
 
+for cor in cores:
+    print(cor)
+
+indice = 0
+while indice < len(cores):
+    print(cores[indice])
+    indice = indice + 1
+
+# gerar indice em um for
+
+for indice, cor in enumerate(cores): # colocar chave valor
+    print(indice, cor)
+
+cores = list(enumerate(cores))
+print(cores)
+
+# listas aceitam valores repetidos
+
+lista = []
+
+lista.append(42)
+lista.append(42)
+lista.append(42)
+lista.append(33)
+lista.append(42)
+
+print(lista)
+
+# outros metodos nao tao importantes mas uteis
+# encontrar o indice de um elemento na lista
+
+numeros = [5, 6, 7, 8, 5, 9, 10]
+
+print(numeros.index(6)) # em qual indice da lista esta o valor 6
+print(numeros.index(9)) # em qual indice da lista esta o valor 9
+
+cores = ['verde', 'amarelo', 'azul', 'branco']
+print(cores.index('verde')) # em qual indice da lista esta o verde
+
+# OBS : caso haja dois elementos iguais, ele retorna o primeiro encontrado
+
+# Podemos fazer busca dentro de um range, quak indice começar a buscar
+print(numeros.index(5, 1)) # buscando o 5 apartir do indice 1
+print(numeros.index(5, 2)) # buscando o 5 apartir do indice 2, ignora 0 e 1
+
+# podemos fazer busca dentro de um range, inicio/fim
+
+print(numeros.index(8, 3, 6)) # procura 8 entre indice 3 e 6
+
+# revisão de Slicing
+
+# lista[inicio:fim:passo]
+# range(inicio:fim:passo)
+
+# Trabalhando com slice de listas com o parametro 'inicio'
+
+lista = [1, 2, 3, 4]
+print(lista[1:]) # iniciando no indice 1 até o final
+
+# Trabalhando com slice de listas com o parametro 'fim'
+
+print(lista[:2]) # iniciando do começo e parando no indice 2
+
+# Trabalhando com slice de listas com o parametro 'slice'
+
+print(lista[1::2]) # começa em 1, vai até o final , de 2 em 2
+print(lista[::2]) # começa em 0, vai até o final , de 2 em 2
+
+# Invertendo valores em uma lista
+
+nomes = ['Geek', 'University']
+
+nomes[0], nomes[1] = nomes[1], nomes[0]
+print(nomes)
+
+# mesmo que
+nomes.reverse()
+print(nomes)
+
+# Soma*, valor maximo*, valor minimo*, tamanho
+# * Se os valores forem todos inteiros ou reais
+
+lista = [1, 2, 3, 4, 5, 6]
+
+print(sum(lista)) # soma da lista
+print(max(lista)) # valor maximo
+print(min(lista)) # valor minimo
+print(len(lista)) # tamanho da lista
+
+# transformar lista em tupla
+
+lista = [1, 2, 3, 4, 5, 6]
+print(lista)
+print(type(lista))
+
+tupla = tuple(lista)
+print(tupla)
+print(type(tupla))
+
+# Desempacotamento de listas
+
+lista = [1, 2, 3]
+
+num1, num2, num3 = lista
+print(num1)
+print(num2)
+print(num3)
+
+# copiando listas para outra (Shallow Copy e Deep Copy)
+
+# Forma 1 ( Deep Copy)
+
+lista = [1, 2, 3]
+print(lista)
+
+nova = lista.copy() # copia a lista em uma nova variavel
+
+print(nova)
+
+nova.append(4) # adiciona o 4 apenas na nova lista, nao na lista base
+print(nova)
+
+# OBS : veja que ao utilizar o lista.copy() copiamos os dados da lista paraa uma nova lista
+# mas elas ficaram totalmente independentes, ou seja, modificar uma lista nao afeta a outra,
+# é chamado de Deep Copy
+
+"""
+
+
+
+# Forma 2 ( Shallow Copy)
+
+
+lista = [1, 2, 3]
+print(lista)
+
+nova = lista
+print(nova)
+
+nova.append(4) # adiciona o 4 nas duas listas
+
+print(nova)
+print(lista)
+
+# OBS : veja que tulizamos a copia via atribuição e copiamos os daods da lista para a nova lista,
+# mas apos relizar modificaçao em uma das listas, essa modificação se refletiu em ambas as listas
+# é chamado de Shallow Copy
