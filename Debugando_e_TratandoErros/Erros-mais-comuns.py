@@ -1,0 +1,4 @@
+"""
+Erros mais comuns
+
+"""
