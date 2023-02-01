@@ -39,7 +39,7 @@ geek()
 
 # Exemplos NameError
 
-geek()
+
 
 
 
