@@ -127,5 +127,3 @@ print(fora())
 print(dentro()) # função dentro só é reconhecido dentro da função fora
 
 """
-
-
