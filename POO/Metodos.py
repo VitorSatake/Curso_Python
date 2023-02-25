@@ -21,6 +21,8 @@ magicas internas da linguagem, entao evite ao maximo, de preferencia nunca o fa�
 
 # OBS : Metodos sao escritos em letras minusculas, se o nome for compsto, o nome tera as palavras separadas
 por underline.
+
+#OBS : Metodos de classe em python, sao conhecidos como metodos estaticos em outras linguagens.
 """
 
 class Lampada:
@@ -58,32 +60,186 @@ class Produto:
         return (self.__valor * (100 - porcentagem)) / 100
 
 
+from passlib.hash import pbkdf2_sha256 as cryp # biblioteca para criar criptografia 
+
+"""
 class Usuario:
     def __init__(self, nome, sobrenome, email, senha):
         self.__nome = nome
         self.__sobrenome = sobrenome
         self.__email = email
-        self.__senha = senha
+        self.__senha = cryp.hash(senha, rounds=200000, salt_size=16)
 
     def nome_completo(self):
         return (f'{self.__nome} {self.__sobrenome}.')
     
-    def retorna_senha(self):
-        return self.__senha
+    def checa_senha(self, senha):
+        if cryp.verify(senha, self.__senha):
+            return True
+        return False
 
 
 
-p1 = Produto('Playstation', 'Video Game', 2300)
+#p1 = Produto('Playstation', 'Video Game', 2300)
 
-print(p1.desconto(10))
+#print(p1.desconto(10))
 
-user1 = Usuario('Renato', 'Augusto', 'teste@gmail', 1234)
+user1 = Usuario('Renato', 'Augusto', 'teste@gmail', '1234')
 
-print(user1.nome_completo())
-print(user1.retorna_senha())
+#print(user1.nome_completo())
+#print(user1.retorna_senha())
 
-user2 = Usuario('Fabio', 'Albuquerque', 'teste2@gmail.com', 4567)
+user2 = Usuario('Fabio', 'Albuquerque', 'teste2@gmail.com', '4567')
 
-print(user2.nome_completo())
-print(user2.retorna_senha())
+#print(user2.nome_completo())
+#print(user2.retorna_senha())
 
+
+nome = input('Informe o nome: ')
+sobrenome = input('Informe o sobrenome: ')
+email = input('Informe o email: ')
+senha = input('Informe a senha: ')
+confirma_senha = input('Confirme a senha: ')
+
+if senha == confirma_senha:
+    user = Usuario(nome, sobrenome, email, senha)
+else:
+    print('Senha não confere.')
+    exit(1)
+
+print('Usuario criado com sucesso!')
+
+senha = input('Informe a senha para acesso: ')
+
+if user.checa_senha(senha):
+    print('Acesso permitido.')
+    print(f'Senha User Criptografada: {user1._Usuario__senha}')  # Acesso errado (Isso é salvo no banco de dados)
+else:
+    print('Acesso negado!')
+
+#print(f'Senha User Criptografada: {user1._Usuario__senha}')  # Acesso errado
+
+
+# Metodos de Classe
+
+# Refatorando classe Usuario
+
+
+class Usuario:
+
+    contador = 0
+
+    @classmethod
+    def conta_usuarios(cls):
+        print(f'Classe {cls}')
+        print(f'Temos {cls.contador} usuários no sistema')
+
+
+    def __init__(self, nome, sobrenome, email, senha):
+        self.__id = Usuario.contador + 1
+        self.__nome = nome
+        self.__sobrenome = sobrenome
+        self.__email = email
+        self.__senha = cryp.hash(senha, rounds=200000, salt_size=16)
+        Usuario.contador = self.__id
+
+    def nome_completo(self):
+        return (f'{self.__nome} {self.__sobrenome}.')
+    
+    def checa_senha(self, senha):
+        if cryp.verify(senha, self.__senha):
+            return True
+        return False
+    
+
+user8 = Usuario('Angelina', 'Jolie', 'ang@gmail.com', '123456')
+
+Usuario.conta_usuarios() # Forma correta
+user8.conta_usuarios() # possivel , mas incorreta
+
+# Usa Metodo de instancia quando precisa de acesso a atributos de instancia
+# Usa Metodo de classe quando nao precisa fazer acesso a atributos de instancia
+
+
+
+# Refatorando Usuario com metodo privado
+
+class Usuario:
+
+    contador = 0
+
+    @classmethod
+    def conta_usuarios(cls):
+        print(f'Classe {cls}')
+        print(f'Temos {cls.contador} usuários no sistema')
+
+
+    def __init__(self, nome, sobrenome, email, senha):
+        self.__id = Usuario.contador + 1
+        self.__nome = nome
+        self.__sobrenome = sobrenome
+        self.__email = email
+        self.__senha = cryp.hash(senha, rounds=200000, salt_size=16)
+        Usuario.contador = self.__id
+        print(f'Usuario criado: {self.__gera_usuario()}')
+
+    def nome_completo(self):
+        return (f'{self.__nome} {self.__sobrenome}.')
+    
+    def checa_senha(self, senha):
+        if cryp.verify(senha, self.__senha):
+            return True
+        return False
+    
+    def __gera_usuario(self): # metodo privado, inicia com __
+        return self.__email.split('@')[0] # separa pelo @ e retorna o indice 0, retorna só o nome
+    
+
+#user = Usuario('Angelina', 'Jolie', 'ang@gmail.com', '123456')
+"""
+# Metodo Estatico
+
+# Refatorando com metodo estatico
+
+class Usuario:
+
+    contador = 0
+
+    @classmethod
+    def conta_usuarios(cls):
+        print(f'Classe {cls}')
+        print(f'Temos {cls.contador} usuários no sistema')
+
+    @staticmethod # metodo estatico
+    def definicao():
+        return 'UXR344'
+
+
+    def __init__(self, nome, sobrenome, email, senha):
+        self.__id = Usuario.contador + 1
+        self.__nome = nome
+        self.__sobrenome = sobrenome
+        self.__email = email
+        self.__senha = cryp.hash(senha, rounds=200000, salt_size=16)
+        Usuario.contador = self.__id
+        print(f'Usuario criado: {self.__gera_usuario()}')
+
+    def nome_completo(self):
+        return (f'{self.__nome} {self.__sobrenome}.')
+    
+    def checa_senha(self, senha):
+        if cryp.verify(senha, self.__senha):
+            return True
+        return False
+    
+    def __gera_usuario(self): # metodo privado, inicia com __
+        return self.__email.split('@')[0] # separa pelo @ e retorna o indice 0, retorna só o nome
+
+
+print(Usuario.contador)
+print(Usuario.definicao())
+
+user = Usuario('Angelina', 'Jolie', 'ang@gmail.com', '123456')
+
+print(user.contador)
+print(user.definicao())
