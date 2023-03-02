@@ -62,8 +62,9 @@ with open('lutadores.csv') as arquivo:
 
 from csv import DictReader
 
-with open('lutadores.csv') as arquivo:
+with open('filmes.csv') as arquivo:
     leitor_csv = DictReader(arquivo, delimiter=',')
     for linha in leitor_csv:
         # cada linha é um OrderedDict
-        print(f"{linha['Nome']} nasceu no(a)(s) {linha['País']} e mede {linha['Altura (em cm)']} centimetros.")
+        #print(f"{linha['Nome']} nasceu no(a)(s) {linha['País']} e mede {linha['Altura (em cm)']} centimetros.")
+        print(leitor_csv)
